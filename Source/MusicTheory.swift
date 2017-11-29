@@ -86,7 +86,7 @@ public struct TimeSignature: Codable {
   /// - Parameters:
   ///   - beats: Number of beats in a measure
   ///   - division: Number of the beats.
-  public init?(beats: Int, division: Int) {
+  public init?(beats: Int = 4, division: Int = 4) {
     guard let noteValue = NoteValueType(rawValue: Double(division)) else {
       return nil
     }

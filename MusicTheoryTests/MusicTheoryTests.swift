@@ -184,4 +184,12 @@ extension MusicTheoryTests {
       XCTAssert(chord.notes(octave: 1) == c7Inversions[index])
     }
   }
+
+  func testCNotes() {
+    let zero = CNote.zero
+    XCTAssert(zero == 0)
+
+    let dbb = CNote(type: .d, accident: .doubleFlat, octave: 0)
+    XCTAssert(dbb == zero)
+  }
 }

@@ -74,4 +74,9 @@ public struct NoteValue: Codable {
     self.type = type
     self.modifier = modifier
   }
+    
+  /// The total duration in whole notes
+  public var duration: Double {
+    return type.rawValue * modifier.rawValue
+  }
 }

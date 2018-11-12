@@ -276,6 +276,8 @@ public enum ChordSuspendedType: Int, ChordPart {
 public struct ChordExtensionType: ChordPart {
   /// Defines type of the extended chords.
   public enum ExtensionType: Int, ChordDescription {
+    /// An octave up from the root.
+    case octave = 8
     /// 9th chord. Second note of the chord, one octave up from root.
     case ninth = 9
     /// 11th chord. Eleventh note of the chord, one octave up from root.
@@ -286,6 +288,8 @@ public struct ChordExtensionType: ChordPart {
     /// Interval between root.
     public var interval: Interval {
       switch self {
+      case .octave:
+        return .P8
       case .ninth:
         return .M9
       case .eleventh:
@@ -298,6 +302,8 @@ public struct ChordExtensionType: ChordPart {
     /// Notation of the chord part.
     public var notation: String {
       switch self {
+      case .octave:
+        return "8"
       case .ninth:
         return "9"
       case .eleventh:
@@ -310,6 +316,8 @@ public struct ChordExtensionType: ChordPart {
     /// Description of the chord part.
     public var description: String {
       switch self {
+      case .octave:
+        return ""
       case .ninth:
         return "9th"
       case .eleventh:
@@ -321,7 +329,7 @@ public struct ChordExtensionType: ChordPart {
 
     /// All values of `ExtensionType`.
     public static var all: [ExtensionType] {
-      return [.ninth, .eleventh, .thirteenth]
+      return [.octave, .ninth, .eleventh, .thirteenth]
     }
   }
 
@@ -372,6 +380,10 @@ public struct ChordExtensionType: ChordPart {
   /// Interval between root.
   public var interval: Interval {
     switch (type, accidental) {
+    case (.octave, .natural): return .P8
+    case (.octave, .flat): return .d8
+    case (.octave, .sharp): return .A8
+
     case (.ninth, .natural): return .M9
     case (.ninth, .flat): return .m9
     case (.ninth, .sharp): return .A9
@@ -387,6 +399,7 @@ public struct ChordExtensionType: ChordPart {
     case (.ninth, _): return .M9
     case (.eleventh, _): return .P11
     case (.thirteenth, _): return .M13
+    case (.octave, _): return .P8
     }
   }
 

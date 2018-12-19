@@ -490,13 +490,13 @@ public struct ChordExtensionType: ChordPart, Equatable {
 
   public static func == (lhs: ChordExtensionType, rhs: ChordExtensionType) -> Bool {
     return lhs.type == rhs.type && lhs.accidental == rhs.accidental
-}
+  }
 }
 
 // MARK: - Chord
 
 /// Defines a chord with a root note and type.
-public struct Chord: ChordDescription, Equatable {
+public struct Chord: ChordDescription, ExpressibleByStringLiteral, Equatable {
   /// Type of the chord.
   public var type: ChordType
   /// Root key of the chord.
@@ -634,6 +634,24 @@ public struct Chord: ChordDescription, Equatable {
   public var description: String {
     let inversionNotation = inversion > 0 ? " \(inversion). Inversion" : ""
     return "\(key) \(type)\(inversionNotation)"
+  }
+
+  // MARK: ExpressibleByIntegerLiteral
+
+  public typealias StringLiteralType = String
+
+  public init(stringLiteral value: Chord.StringLiteralType) {
+    let pattern = "([A-Ga-g][#♯♭b]?)(.*)"
+    let maybeRegex = try? NSRegularExpression(pattern: pattern, options: [])
+    guard let regex = maybeRegex,
+      let match = regex.firstMatch(in: value, options: [], range: NSRange(0 ..< value.count)),
+      let keyRange = Range(match.range(at: 1), in: value),
+      let chordTypeRange = Range(match.range(at: 2), in: value) else {
+      fatalError()
+    }
+
+    key = Key(stringLiteral: String(value[keyRange]))
+    type = ChordType(stringLiteral: String(value[chordTypeRange]))
   }
 
   /// Checks the equability between two chords based on whether they are composed of the same notes

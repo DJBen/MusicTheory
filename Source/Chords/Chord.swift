@@ -490,13 +490,13 @@ public struct ChordExtensionType: ChordPart, Equatable {
 
   public static func == (lhs: ChordExtensionType, rhs: ChordExtensionType) -> Bool {
     return lhs.type == rhs.type && lhs.accidental == rhs.accidental
-}
+  }
 }
 
 // MARK: - Chord
 
 /// Defines a chord with a root note and type.
-public struct Chord: ChordDescription, Equatable {
+public struct Chord: ChordDescription, ExpressibleByStringLiteral, Equatable {
   /// Type of the chord.
   public var type: ChordType
   /// Root key of the chord.
@@ -636,6 +636,24 @@ public struct Chord: ChordDescription, Equatable {
     return "\(key) \(type)\(inversionNotation)"
   }
 
+  // MARK: ExpressibleByIntegerLiteral
+
+  public typealias StringLiteralType = String
+
+  public init(stringLiteral value: Chord.StringLiteralType) {
+    let pattern = "([A-Ga-g][#♯♭b]?)(.*)"
+    let maybeRegex = try? NSRegularExpression(pattern: pattern, options: [])
+    guard let regex = maybeRegex,
+      let match = regex.firstMatch(in: value, options: [], range: NSRange(0 ..< value.count)),
+      let keyRange = Range(match.range(at: 1), in: value),
+      let chordTypeRange = Range(match.range(at: 2), in: value) else {
+      fatalError()
+    }
+
+    key = Key(stringLiteral: String(value[keyRange]))
+    type = ChordType(stringLiteral: String(value[chordTypeRange]))
+  }
+
   /// Checks the equability between two chords based on whether they are composed of the same notes
   /// disregarding inversions. For example, a C/G chord ~= C chord is true.
   ///
@@ -667,5 +685,30 @@ public struct Chord: ChordDescription, Equatable {
   /// - Returns: Returns Bool value of equation of two given chords.
   public static func === (left: Chord, right: Chord) -> Bool {
     return left.key == right.key && left.type == right.type && left.inversion == right.inversion
+  }
+}
+
+public extension Chord {
+  public class Builder {
+    public typealias BuilderBlock = (Builder) -> Void
+
+    public var type: ChordType?
+    public var key: Key?
+    public var inversion: Int?
+
+    public init(builderBlock: BuilderBlock) {
+      builderBlock(self)
+    }
+  }
+
+  public init?(builder: Builder) {
+    guard let type = builder.type, let key = builder.key else {
+      return nil
+    }
+    self.type = type
+    self.key = key
+    if let inversion = builder.inversion {
+      self.inversion = inversion
+    }
   }
 }

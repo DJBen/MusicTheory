@@ -228,3 +228,24 @@ public struct Key: Codable, Equatable, Hashable, ExpressibleByStringLiteral, Cus
     return lhs.type == rhs.type && lhs.accidental == rhs.accidental
   }
 }
+
+public extension Key {
+  public class Builder {
+    public typealias BuilderBlock = (Builder) -> Void
+
+    public var type: KeyType?
+    public var accidental: Accidental?
+
+    public init(builderBlock: BuilderBlock) {
+      builderBlock(self)
+    }
+  }
+
+  public init?(builder: Builder) {
+    guard let type = builder.type, let accidental = builder.accidental else {
+      return nil
+    }
+    self.type = type
+    self.accidental = accidental
+  }
+}

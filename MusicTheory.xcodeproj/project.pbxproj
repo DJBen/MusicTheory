@@ -53,15 +53,49 @@
 		EFA2968E21B8EBCF00C32640 /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2968D21B8EBCF00C32640 /* KeyTests.swift */; };
 		EFA2969021B8EF7A00C32640 /* ScaleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2968F21B8EF7A00C32640 /* ScaleTests.swift */; };
 		EFA2969221B8F03B00C32640 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2969121B8F03B00C32640 /* TempoTests.swift */; };
+		FC0B7F90218FDADA00E734CC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B7F8F218FDAD900E734CC /* Note.swift */; };
+		FC0B7F91218FDADA00E734CC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B7F8F218FDAD900E734CC /* Note.swift */; };
+		FC0B7F92218FDADA00E734CC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B7F8F218FDAD900E734CC /* Note.swift */; };
+		FC0B7F93218FDADA00E734CC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0B7F8F218FDAD900E734CC /* Note.swift */; };
+		FC2840B7219663F2006DCF3A /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840B6219663F2006DCF3A /* Score.swift */; };
+		FC2840B8219663F2006DCF3A /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840B6219663F2006DCF3A /* Score.swift */; };
+		FC2840B9219663F2006DCF3A /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840B6219663F2006DCF3A /* Score.swift */; };
+		FC2840BA219663F2006DCF3A /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840B6219663F2006DCF3A /* Score.swift */; };
+		FC2840BC21966406006DCF3A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840BB21966406006DCF3A /* Part.swift */; };
+		FC2840BD21966406006DCF3A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840BB21966406006DCF3A /* Part.swift */; };
+		FC2840BE21966406006DCF3A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840BB21966406006DCF3A /* Part.swift */; };
+		FC2840BF21966406006DCF3A /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840BB21966406006DCF3A /* Part.swift */; };
+		FC2840C121966430006DCF3A /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C021966430006DCF3A /* Passage.swift */; };
+		FC2840C221966430006DCF3A /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C021966430006DCF3A /* Passage.swift */; };
+		FC2840C321966430006DCF3A /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C021966430006DCF3A /* Passage.swift */; };
+		FC2840C421966430006DCF3A /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C021966430006DCF3A /* Passage.swift */; };
 		FC2840C6219669CC006DCF3A /* Clef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C5219669CC006DCF3A /* Clef.swift */; };
 		FC2840C7219669CC006DCF3A /* Clef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C5219669CC006DCF3A /* Clef.swift */; };
 		FC2840C8219669CC006DCF3A /* Clef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C5219669CC006DCF3A /* Clef.swift */; };
 		FC2840C9219669CC006DCF3A /* Clef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840C5219669CC006DCF3A /* Clef.swift */; };
 		FC2840CB21966B94006DCF3A /* ClefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840CA21966B94006DCF3A /* ClefTests.swift */; };
+		FC2840FC21990998006DCF3A /* TempoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840FB21990998006DCF3A /* TempoProvider.swift */; };
+		FC2840FD21990998006DCF3A /* TempoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840FB21990998006DCF3A /* TempoProvider.swift */; };
+		FC2840FE21990998006DCF3A /* TempoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840FB21990998006DCF3A /* TempoProvider.swift */; };
+		FC2840FF21990998006DCF3A /* TempoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2840FB21990998006DCF3A /* TempoProvider.swift */; };
+		FC28410221990B73006DCF3A /* DurationMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410121990B73006DCF3A /* DurationMeasurable.swift */; };
+		FC28410321990B73006DCF3A /* DurationMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410121990B73006DCF3A /* DurationMeasurable.swift */; };
+		FC28410421990B73006DCF3A /* DurationMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410121990B73006DCF3A /* DurationMeasurable.swift */; };
+		FC28410521990B73006DCF3A /* DurationMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410121990B73006DCF3A /* DurationMeasurable.swift */; };
+		FC28410721990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410621990B8E006DCF3A /* NoteValueMeasurable.swift */; };
+		FC28410821990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410621990B8E006DCF3A /* NoteValueMeasurable.swift */; };
+		FC28410921990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410621990B8E006DCF3A /* NoteValueMeasurable.swift */; };
+		FC28410A21990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28410621990B8E006DCF3A /* NoteValueMeasurable.swift */; };
 		FC49D21221B11E010062CDEB /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21121B11E010062CDEB /* ChordType.swift */; };
 		FC49D21321B11E010062CDEB /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21121B11E010062CDEB /* ChordType.swift */; };
 		FC49D21421B11E010062CDEB /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21121B11E010062CDEB /* ChordType.swift */; };
 		FC49D21521B11E010062CDEB /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21121B11E010062CDEB /* ChordType.swift */; };
+		FC49D21921B393120062CDEB /* BuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21821B393120062CDEB /* BuilderTests.swift */; };
+		FC49D21B21B3C7390062CDEB /* PassageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21A21B3C7390062CDEB /* PassageContext.swift */; };
+		FC49D21C21B3C7390062CDEB /* PassageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21A21B3C7390062CDEB /* PassageContext.swift */; };
+		FC49D21D21B3C7390062CDEB /* PassageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21A21B3C7390062CDEB /* PassageContext.swift */; };
+		FC49D21E21B3C7390062CDEB /* PassageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21A21B3C7390062CDEB /* PassageContext.swift */; };
+		FC49D22021B67BE00062CDEB /* ChordProgressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49D21F21B67BE00062CDEB /* ChordProgressionTests.swift */; };
 		FC940AEF21869F63001B3B7F /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC940AED21869F63001B3B7F /* Chord.swift */; };
 		FC940AF021869F63001B3B7F /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC940AED21869F63001B3B7F /* Chord.swift */; };
 		FC940AF121869F63001B3B7F /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC940AED21869F63001B3B7F /* Chord.swift */; };
@@ -113,9 +147,19 @@
 		EFA2968D21B8EBCF00C32640 /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
 		EFA2968F21B8EF7A00C32640 /* ScaleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleTests.swift; sourceTree = "<group>"; };
 		EFA2969121B8F03B00C32640 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
+		FC0B7F8F218FDAD900E734CC /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		FC2840B6219663F2006DCF3A /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		FC2840BB21966406006DCF3A /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
+		FC2840C021966430006DCF3A /* Passage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passage.swift; sourceTree = "<group>"; };
 		FC2840C5219669CC006DCF3A /* Clef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clef.swift; sourceTree = "<group>"; };
 		FC2840CA21966B94006DCF3A /* ClefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClefTests.swift; sourceTree = "<group>"; };
+		FC2840FB21990998006DCF3A /* TempoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoProvider.swift; sourceTree = "<group>"; };
+		FC28410121990B73006DCF3A /* DurationMeasurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationMeasurable.swift; sourceTree = "<group>"; };
+		FC28410621990B8E006DCF3A /* NoteValueMeasurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteValueMeasurable.swift; sourceTree = "<group>"; };
 		FC49D21121B11E010062CDEB /* ChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordType.swift; sourceTree = "<group>"; };
+		FC49D21821B393120062CDEB /* BuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderTests.swift; sourceTree = "<group>"; };
+		FC49D21A21B3C7390062CDEB /* PassageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageContext.swift; sourceTree = "<group>"; };
+		FC49D21F21B67BE00062CDEB /* ChordProgressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProgressionTests.swift; sourceTree = "<group>"; };
 		FC940AED21869F63001B3B7F /* Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		FC940AEE21869F63001B3B7F /* ChordProgression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProgression.swift; sourceTree = "<group>"; };
 		FC940AF82186A44E001B3B7F /* Array+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
@@ -165,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				FC2840CC2196B654006DCF3A /* Presentation */,
+				FC0B7F8E218FDAD900E734CC /* Composition */,
 				FC0B7F84218E329A00E734CC /* Rhythm */,
 				FC0B7F83218E326000E734CC /* Frequency */,
 				FC940AF72186A429001B3B7F /* Utils */,
@@ -206,6 +251,8 @@
 				B23E8EBE1F1C2BAE0094D316 /* Array+TestUtils.swift */,
 				FC2840CA21966B94006DCF3A /* ClefTests.swift */,
 				B23E8EC01F1C2BAE0094D316 /* Info.plist */,
+				FC49D21821B393120062CDEB /* BuilderTests.swift */,
+				FC49D21F21B67BE00062CDEB /* ChordProgressionTests.swift */,
 				EFA2968B21B8EB6D00C32640 /* ChordTests.swift */,
 				EFA2968D21B8EBCF00C32640 /* KeyTests.swift */,
 				EFA2968F21B8EF7A00C32640 /* ScaleTests.swift */,
@@ -229,11 +276,25 @@
 		FC0B7F84218E329A00E734CC /* Rhythm */ = {
 			isa = PBXGroup;
 			children = (
+				FC2840FB21990998006DCF3A /* TempoProvider.swift */,
 				B2B565F920DC14F00070B8B7 /* NoteValue.swift */,
 				B2B565FB20DC14F90070B8B7 /* TimeSignature.swift */,
 				B2B565EE20DBF72A0070B8B7 /* Tempo.swift */,
 			);
 			path = Rhythm;
+			sourceTree = "<group>";
+		};
+		FC0B7F8E218FDAD900E734CC /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+				FC28410021990B3C006DCF3A /* Protocols */,
+				FC0B7F8F218FDAD900E734CC /* Note.swift */,
+				FC2840B6219663F2006DCF3A /* Score.swift */,
+				FC2840BB21966406006DCF3A /* Part.swift */,
+				FC2840C021966430006DCF3A /* Passage.swift */,
+				FC49D21A21B3C7390062CDEB /* PassageContext.swift */,
+			);
+			path = Composition;
 			sourceTree = "<group>";
 		};
 		FC2840CC2196B654006DCF3A /* Presentation */ = {
@@ -242,6 +303,15 @@
 				FC2840C5219669CC006DCF3A /* Clef.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		FC28410021990B3C006DCF3A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				FC28410121990B73006DCF3A /* DurationMeasurable.swift */,
+				FC28410621990B8E006DCF3A /* NoteValueMeasurable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		FC940AEC21869E03001B3B7F /* Chords */ = {
@@ -498,18 +568,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC49D21B21B3C7390062CDEB /* PassageContext.swift in Sources */,
 				B2EB6BA91F9ED475000C8F15 /* Scale.swift in Sources */,
 				B2B5660420DC16580070B8B7 /* Key.swift in Sources */,
+				FC2840BC21966406006DCF3A /* Part.swift in Sources */,
 				FC940AF321869F63001B3B7F /* ChordProgression.swift in Sources */,
 				B2B565E620DBE6930070B8B7 /* Accidental.swift in Sources */,
 				B2B565ED20DBF7030070B8B7 /* Pitch.swift in Sources */,
 				B2B565FA20DC14F00070B8B7 /* NoteValue.swift in Sources */,
+				FC28410221990B73006DCF3A /* DurationMeasurable.swift in Sources */,
 				FC49D21221B11E010062CDEB /* ChordType.swift in Sources */,
 				B23A6ED120DD530D00BF60D9 /* Interval.swift in Sources */,
 				FC940AEF21869F63001B3B7F /* Chord.swift in Sources */,
+				FC2840B7219663F2006DCF3A /* Score.swift in Sources */,
+				FC2840C121966430006DCF3A /* Passage.swift in Sources */,
 				B2B565EF20DBF72A0070B8B7 /* Tempo.swift in Sources */,
 				FC940AF92186A44E001B3B7F /* Array+Utils.swift in Sources */,
+				FC2840FC21990998006DCF3A /* TempoProvider.swift in Sources */,
+				FC28410721990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */,
 				B2B565FC20DC14F90070B8B7 /* TimeSignature.swift in Sources */,
+				FC0B7F90218FDADA00E734CC /* Note.swift in Sources */,
 				FC2840C6219669CC006DCF3A /* Clef.swift in Sources */,
 				EF9BB8FA21BF50F100913439 /* RegexStringLiteralExtractable.swift in Sources */,
 			);
@@ -519,18 +597,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC49D21C21B3C7390062CDEB /* PassageContext.swift in Sources */,
 				B2EB6BAA1F9ED4FC000C8F15 /* Scale.swift in Sources */,
 				B2B5660520DC16810070B8B7 /* Key.swift in Sources */,
+				FC2840BD21966406006DCF3A /* Part.swift in Sources */,
 				FC940AF421869F63001B3B7F /* ChordProgression.swift in Sources */,
 				B2B565E720DBECE70070B8B7 /* Accidental.swift in Sources */,
 				B2B565F120DBF7440070B8B7 /* Pitch.swift in Sources */,
 				B2B565FD20DC15860070B8B7 /* NoteValue.swift in Sources */,
+				FC28410321990B73006DCF3A /* DurationMeasurable.swift in Sources */,
 				FC49D21321B11E010062CDEB /* ChordType.swift in Sources */,
 				B23A6ED220DD530D00BF60D9 /* Interval.swift in Sources */,
 				FC940AF021869F63001B3B7F /* Chord.swift in Sources */,
+				FC2840B8219663F2006DCF3A /* Score.swift in Sources */,
+				FC2840C221966430006DCF3A /* Passage.swift in Sources */,
 				B2B565F220DBF7440070B8B7 /* Tempo.swift in Sources */,
 				FC940AFA2186A44E001B3B7F /* Array+Utils.swift in Sources */,
+				FC2840FD21990998006DCF3A /* TempoProvider.swift in Sources */,
+				FC28410821990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */,
 				B2B565FE20DC15860070B8B7 /* TimeSignature.swift in Sources */,
+				FC0B7F91218FDADA00E734CC /* Note.swift in Sources */,
 				FC2840C7219669CC006DCF3A /* Clef.swift in Sources */,
 				EF9BB8FB21BF50F100913439 /* RegexStringLiteralExtractable.swift in Sources */,
 			);
@@ -540,18 +626,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC49D21D21B3C7390062CDEB /* PassageContext.swift in Sources */,
 				B2EB6BAB1F9ED4FD000C8F15 /* Scale.swift in Sources */,
 				B2B5660620DC16810070B8B7 /* Key.swift in Sources */,
+				FC2840BE21966406006DCF3A /* Part.swift in Sources */,
 				FC940AF521869F63001B3B7F /* ChordProgression.swift in Sources */,
 				B2B565E820DBECE70070B8B7 /* Accidental.swift in Sources */,
 				B2B565F720DBF7460070B8B7 /* Pitch.swift in Sources */,
 				B2B565FF20DC15870070B8B7 /* NoteValue.swift in Sources */,
+				FC28410421990B73006DCF3A /* DurationMeasurable.swift in Sources */,
 				FC49D21421B11E010062CDEB /* ChordType.swift in Sources */,
 				B23A6ED320DD530D00BF60D9 /* Interval.swift in Sources */,
 				FC940AF121869F63001B3B7F /* Chord.swift in Sources */,
+				FC2840B9219663F2006DCF3A /* Score.swift in Sources */,
+				FC2840C321966430006DCF3A /* Passage.swift in Sources */,
 				B2B565F820DBF7460070B8B7 /* Tempo.swift in Sources */,
 				FC940AFB2186A44E001B3B7F /* Array+Utils.swift in Sources */,
+				FC2840FE21990998006DCF3A /* TempoProvider.swift in Sources */,
+				FC28410921990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */,
 				B2B5660020DC15870070B8B7 /* TimeSignature.swift in Sources */,
+				FC0B7F92218FDADA00E734CC /* Note.swift in Sources */,
 				FC2840C8219669CC006DCF3A /* Clef.swift in Sources */,
 				EF9BB8FC21BF50F100913439 /* RegexStringLiteralExtractable.swift in Sources */,
 			);
@@ -561,18 +655,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC49D21E21B3C7390062CDEB /* PassageContext.swift in Sources */,
 				B2B5660720DC16830070B8B7 /* Key.swift in Sources */,
 				B2B565E920DBECE80070B8B7 /* Accidental.swift in Sources */,
+				FC2840BF21966406006DCF3A /* Part.swift in Sources */,
 				FC940AF621869F63001B3B7F /* ChordProgression.swift in Sources */,
 				B2B565F420DBF7450070B8B7 /* Pitch.swift in Sources */,
 				B2B5660120DC15880070B8B7 /* NoteValue.swift in Sources */,
 				B2B565F520DBF7450070B8B7 /* Tempo.swift in Sources */,
+				FC28410521990B73006DCF3A /* DurationMeasurable.swift in Sources */,
 				FC49D21521B11E010062CDEB /* ChordType.swift in Sources */,
 				B23A6ED420DD530D00BF60D9 /* Interval.swift in Sources */,
 				FC940AF221869F63001B3B7F /* Chord.swift in Sources */,
+				FC2840BA219663F2006DCF3A /* Score.swift in Sources */,
+				FC2840C421966430006DCF3A /* Passage.swift in Sources */,
 				B2CDE75220DC477D00039573 /* Scale.swift in Sources */,
 				FC940AFC2186A44E001B3B7F /* Array+Utils.swift in Sources */,
+				FC2840FF21990998006DCF3A /* TempoProvider.swift in Sources */,
+				FC28410A21990B8E006DCF3A /* NoteValueMeasurable.swift in Sources */,
 				B2B5660220DC15880070B8B7 /* TimeSignature.swift in Sources */,
+				FC0B7F93218FDADA00E734CC /* Note.swift in Sources */,
 				FC2840C9219669CC006DCF3A /* Clef.swift in Sources */,
 				EF9BB8FD21BF50F100913439 /* RegexStringLiteralExtractable.swift in Sources */,
 			);
@@ -584,6 +686,7 @@
 			files = (
 				FC49D22021B67BE00062CDEB /* ChordProgressionTests.swift in Sources */,
 				B23E8EBF1F1C2BAE0094D316 /* Array+TestUtils.swift in Sources */,
+				FC49D21921B393120062CDEB /* BuilderTests.swift in Sources */,
 				EFA2969221B8F03B00C32640 /* TempoTests.swift in Sources */,
 				EFA2969021B8EF7A00C32640 /* ScaleTests.swift in Sources */,
 				EFA2968E21B8EBCF00C32640 /* KeyTests.swift in Sources */,

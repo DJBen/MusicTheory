@@ -272,3 +272,24 @@ public struct Pitch: RawRepresentable, Codable, Equatable, Comparable, Expressib
     return "\(key)\(octave)"
   }
 }
+
+public extension Pitch {
+  public class Builder {
+    typealias BuilderBlock = (Builder) -> Void
+
+    var key: Key?
+    var octave: Int?
+
+    init(builderBlock: BuilderBlock) {
+      builderBlock(self)
+    }
+  }
+
+  public init?(builder: Builder) {
+    guard let key = builder.key, let octave = builder.octave else {
+      return nil
+    }
+    self.key = key
+    self.octave = octave
+  }
+}

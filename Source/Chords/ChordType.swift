@@ -7,7 +7,10 @@
 //
 
 /// Defines full type of chord with all chord parts.
-public struct ChordType: ChordDescription {
+public struct ChordType: RegexStringLiteralExtractable {
+  static let unitSymbolPattern = "[\\w\\d+°♭♯]"
+  public static let pattern = "(\(unitSymbolPattern)*)" + (0 ..< 9).map { _ in "(?:\\((\(unitSymbolPattern)+)\\))?" }.joined()
+
   /// Thirds part. Second note of the chord.
   public var third: ChordThirdType?
   /// Fifths part. Third note of the chord.
@@ -126,64 +129,6 @@ public struct ChordType: ChordDescription {
     }
   }
 
-  /// Notation of the chord type.
-  public var notation: String {
-    var seventhNotation = seventh?.notation ?? ""
-    var sixthNotation = sixth == nil ? "" : "\(sixth!.notation)\(seventh == nil ? "" : "/")"
-    let suspendedNotation = suspended?.notation ?? ""
-    var extensionNotation = ""
-    let ext = extensions?.sorted(by: { $0.type.rawValue < $1.type.rawValue }) ?? []
-
-    var singleNotation = !ext.isEmpty && true
-    for i in 0 ..< max(0, ext.count - 1) {
-      if ext[i].accidental != .natural {
-        singleNotation = false
-      }
-    }
-
-    if singleNotation {
-      extensionNotation = "(\(ext.last!.notation))"
-    } else {
-      extensionNotation = ext
-        .compactMap({ $0.notation })
-        .joined(separator: "/")
-      extensionNotation = extensionNotation.isEmpty ? "" : "(\(extensionNotation))"
-    }
-
-    let thirdNotation: String
-    let fifthNotation: String
-    var eighthNotation: String = ""
-
-    if let fifth = fifth, let third = third {
-      thirdNotation = third.notation
-      fifthNotation = fifth.notation
-    } else if let fifth = fifth {
-      thirdNotation = ""
-      fifthNotation = fifth == .perfect ? "5" : fifth.notation
-    } else if let third = third {
-      thirdNotation = third.notation
-      fifthNotation = "(no 5)"
-    } else {
-      eighthNotation = "8"
-      thirdNotation = ""
-      fifthNotation = ""
-    }
-
-    if seventh != nil {
-      // Don't show major seventh note if extended is a major as well
-      if seventh == .major, (extensions ?? []).count > 0 {
-        seventhNotation = ""
-        sixthNotation = sixth == nil ? "" : sixth!.notation
-      }
-      // Show fifth note after seventh in parenthesis
-      if fifth == .augmented || fifth == .diminished {
-        return "\(eighthNotation)\(thirdNotation)\(sixthNotation)\(seventhNotation)(\(thirdNotation))\(suspendedNotation)\(extensionNotation)"
-      }
-    }
-
-    return "\(eighthNotation)\(thirdNotation)\(fifthNotation)\(sixthNotation)\(seventhNotation)\(suspendedNotation)\(extensionNotation)"
-  }
-
   /// Description of the chord type.
   public var description: String {
     let seventhNotation = seventh?.description
@@ -270,6 +215,189 @@ public struct ChordType: ChordDescription {
       }
     }
     return all
+  }
+
+  public typealias StringLiteralType = String
+
+  /// Initializes ChordType with a string literal notation.
+  ///
+  /// The notation can either be in short format or long format, as described in see also section.
+  /// No superscript is accepted.
+  ///
+  /// - Rules:
+  ///   - Both `M` and `maj` denotes a minor chord. Both `m` and `min` denotes a minor chord.
+  ///   - Both `o` and `dim` denotes a diminished fifth chord.
+  ///   - Both `+` and `aug` denotes an augmented fifth chord.
+  ///   - Use `m(M7)` or `min(maj7)` to denote a minor-najor sevens chord.
+  ///   - Use `Ø`, `ø`, or `ø7` to denote a half-diminished seventh chord.
+  ///   - Use `(♭5)`, `(♯5)` to modify the quality of a chord component.
+  ///   - b/♭ and #/♯ are interchangable.
+  ///   - Use `add6`, `no5`, `sus4`, `add♯11` to denote addition, removal or subtitution of a chord component.
+  ///   - All notations after the first notation requires parenthesis, for example, m7(add♯9).
+  ///
+  /// - Parameter value: String representation of the chord type
+  ///
+  /// - See Also: https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)#Examples
+  public init(regexMatches: [String]) {
+    let baseNotation = String(regexMatches[1])
+    guard let baseNotationRegex = try? NSRegularExpression(pattern: "((?:[A-Za-z]|[\\+°Øø])*)(\\d)?", options: []),
+      let baseNotationMatch = baseNotationRegex.firstMatch(in: baseNotation, options: [], range: NSRange(0 ..< baseNotation.count)) else {
+      fatalError("Invalid base chord type format.")
+    }
+
+    let nonNumeralBaseNotationRange = Range(baseNotationMatch.range(at: 1), in: baseNotation)
+    let numeralBaseNotationRange = Range(baseNotationMatch.range(at: 2), in: baseNotation)
+
+    let builder = ChordType.Builder { builder in
+      let nonNumeralBaseNotation = nonNumeralBaseNotationRange != nil ? String(baseNotation[nonNumeralBaseNotationRange!]) : ""
+
+      switch nonNumeralBaseNotation {
+      case "", "M", "maj":
+        builder.third = .major
+        builder.fifth = .perfect
+      case "m", "min":
+        builder.third = .minor
+        builder.fifth = .perfect
+      case "°", "o", "dim":
+        builder.third = .minor
+        builder.fifth = .diminished
+      case "+", "aug":
+        builder.third = .major
+        builder.fifth = .augmented
+      case "Ø", "ø":
+        builder.third = .minor
+        builder.fifth = .diminished
+      default:
+        fatalError()
+      }
+
+      let numeralBaseNotation = numeralBaseNotationRange != nil ? String(baseNotation[numeralBaseNotationRange!]) : ""
+
+      switch numeralBaseNotation {
+      case "":
+        break
+      case "5":
+        builder.third = nil
+      case "6":
+        builder.sixth = ChordSixthType()
+      case "7":
+        if nonNumeralBaseNotation == "M" || nonNumeralBaseNotation == "maj" {
+          builder.seventh = .major
+        } else if nonNumeralBaseNotation == "°" || nonNumeralBaseNotation == "o" || nonNumeralBaseNotation == "dim" {
+          builder.seventh = .diminished
+        } else {
+          builder.seventh = .dominant
+        }
+      case "9":
+        builder.fill([.seventh])
+        builder.addExtension(ChordExtensionType(type: .ninth))
+      case "11":
+        builder.fill([.seventh, .ninth])
+        builder.addExtension(ChordExtensionType(type: .eleventh))
+      case "13":
+        builder.fill([.seventh, .ninth, .eleventh])
+        builder.addExtension(ChordExtensionType(type: .thirteenth))
+      default:
+        fatalError()
+      }
+
+      let parsedExtendedNotation = regexMatches[2 ..< regexMatches.endIndex].compactMap { (extendedNotation) -> (modifier: String, scale: String)? in
+        guard let extendedNotationRegex = try? NSRegularExpression(pattern: "(add|no|sus|♭|♯|#|b|maj|M|°|\\+)?\\s?(\\d+)?", options: []),
+          let extendedNotationMatch = extendedNotationRegex.firstMatch(in: extendedNotation, options: [], range: NSRange(0 ..< extendedNotation.count)),
+          let extendedNotationModifier = Range(extendedNotationMatch.range(at: 1), in: extendedNotation),
+          let extendedNotationScale = Range(extendedNotationMatch.range(at: 2), in: extendedNotation) else {
+          return nil
+        }
+
+        let modifier = String(extendedNotation[extendedNotationModifier])
+        let scale = String(extendedNotation[extendedNotationScale])
+
+        return (modifier, scale)
+      }
+
+      for (modifier, scale) in parsedExtendedNotation {
+        switch modifier {
+        case "":
+          if scale.isEmpty == false {
+            fatalError("Scale must be accompanied by add/sus/no modifier")
+          }
+        case "add":
+          switch scale {
+          case "6":
+            builder.sixth = ChordSixthType()
+          case "9": builder.addExtension(ChordExtensionType(type: .ninth))
+          case "11": builder.addExtension(ChordExtensionType(type: .eleventh))
+          default:
+            fatalError("Invalid augmented scale")
+          }
+        case "no":
+          switch scale {
+          case "3":
+            builder.third = nil
+          case "5":
+            builder.fifth = nil
+          case "7":
+            builder.seventh = nil
+          case "9":
+            builder.removeAllExtensions(ofType: .ninth)
+          default:
+            fatalError("Invalid augmented scale")
+          }
+        case "sus":
+          switch scale {
+          case "2":
+            builder.suspended = .sus2
+          case "4":
+            builder.suspended = .sus4
+          default:
+            fatalError("Invalid suspension chord scale")
+          }
+        case "+", "♯", "#":
+          switch scale {
+          case "5":
+            builder.fifth = .augmented
+          case "9":
+            builder.fill([.seventh])
+            builder.addExtension(ChordExtensionType(type: .ninth, accidental: .sharp))
+          case "11":
+            builder.fill([.seventh, .ninth])
+            builder.addExtension(ChordExtensionType(type: .eleventh, accidental: .sharp))
+          default:
+            fatalError("Invalid augmented scale")
+          }
+        case "°", "♭", "b":
+          switch scale {
+          case "5":
+            builder.fifth = .diminished
+          case "9":
+            builder.fill([.seventh])
+            builder.addExtension(ChordExtensionType(type: .ninth, accidental: .flat))
+          case "11":
+            builder.fill([.seventh, .ninth])
+            builder.addExtension(ChordExtensionType(type: .eleventh, accidental: .flat))
+          default:
+            fatalError("Invalid diminished scale")
+          }
+        case "maj", "M":
+          switch scale {
+          case "7":
+            builder.seventh = .major
+          case "9":
+            builder.fill([.seventh])
+            builder.addExtension(ChordExtensionType(type: .ninth))
+          case "11":
+            builder.fill([.seventh, .ninth])
+            builder.addExtension(ChordExtensionType(type: .eleventh, accidental: .flat))
+          default:
+            fatalError("Invalid major extension scale")
+          }
+        default:
+          fatalError()
+        }
+      }
+    }
+
+    self.init(builder: builder)
   }
 
   // MARK: - ChordType
@@ -363,4 +491,64 @@ public extension ChordType {
     suspended = builder.suspended
     extensions = builder.extensions
   }
+}
+
+extension ChordType: ChordDescription {
+    /// Notation of the chord type.
+    public var notation: String {
+        var seventhNotation = seventh?.notation ?? ""
+        var sixthNotation = sixth == nil ? "" : "\(sixth!.notation)\(seventh == nil ? "" : "/")"
+        let suspendedNotation = suspended?.notation ?? ""
+        var extensionNotation = ""
+        let ext = extensions?.sorted(by: { $0.type.rawValue < $1.type.rawValue }) ?? []
+
+        var singleNotation = !ext.isEmpty && true
+        for i in 0 ..< max(0, ext.count - 1) {
+            if ext[i].accidental != .natural {
+                singleNotation = false
+            }
+        }
+
+        if singleNotation {
+            extensionNotation = "(\(ext.last!.notation))"
+        } else {
+            extensionNotation = ext
+                .compactMap({ $0.notation })
+                .joined(separator: "/")
+            extensionNotation = extensionNotation.isEmpty ? "" : "(\(extensionNotation))"
+        }
+
+        let thirdNotation: String
+        let fifthNotation: String
+        var eighthNotation: String = ""
+
+        if let fifth = fifth, let third = third {
+            thirdNotation = third.notation
+            fifthNotation = fifth.notation
+        } else if let fifth = fifth {
+            thirdNotation = ""
+            fifthNotation = fifth == .perfect ? "5" : fifth.notation
+        } else if let third = third {
+            thirdNotation = third.notation
+            fifthNotation = "(no 5)"
+        } else {
+            eighthNotation = "8"
+            thirdNotation = ""
+            fifthNotation = ""
+        }
+
+        if seventh != nil {
+            // Don't show major seventh note if extended is a major as well
+            if seventh == .major, (extensions ?? []).count > 0 {
+                seventhNotation = ""
+                sixthNotation = sixth == nil ? "" : sixth!.notation
+            }
+            // Show fifth note after seventh in parenthesis
+            if fifth == .augmented || fifth == .diminished {
+                return "\(eighthNotation)\(thirdNotation)\(sixthNotation)\(seventhNotation)(\(thirdNotation))\(suspendedNotation)\(extensionNotation)"
+            }
+        }
+
+        return "\(eighthNotation)\(thirdNotation)\(fifthNotation)\(sixthNotation)\(seventhNotation)\(suspendedNotation)\(extensionNotation)"
+    }
 }

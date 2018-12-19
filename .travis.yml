@@ -3,6 +3,8 @@ language: swift
 osx_image: xcode10.1
 xcode_project: MusicTheory.xcodeproj
 xcode_scheme: MusicTheoryTests
+before_install:
+  - gem install xcpretty
 script:
-  - xcodebuild -project MusicTheory.xcodeproj -scheme MusicTheory\ Mac ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-  - xcodebuild test -project MusicTheory.xcodeproj -scheme MusicTheoryTests ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+  - set -o pipefail && xcodebuild -project MusicTheory.xcodeproj -scheme MusicTheory\ Mac ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty
+  - set -o pipefail && xcodebuild test -project MusicTheory.xcodeproj -scheme MusicTheoryTests ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty

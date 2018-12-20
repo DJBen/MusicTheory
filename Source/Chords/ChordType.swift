@@ -224,8 +224,8 @@ public struct ChordType: RegexStringLiteralExtractable {
   /// - Parameter value: String representation of the chord type
   ///
   /// - See Also: https://en.wikipedia.org/wiki/Chord_names_and_symbols_(popular_music)#Examples
-  public init(regexMatches: [String]) {
-    let baseNotation = String(regexMatches[1])
+  public init(regexCaptures: [String]) {
+    let baseNotation = String(regexCaptures[1])
     guard let baseNotationRegex = try? NSRegularExpression(pattern: "((?:[A-Za-z]|[\\+°Øø])*)(\\d)?", options: []),
       let baseNotationMatch = baseNotationRegex.firstMatch(in: baseNotation, options: [], range: NSRange(0 ..< baseNotation.count)) else {
       fatalError("Invalid base chord type format.")
@@ -287,7 +287,7 @@ public struct ChordType: RegexStringLiteralExtractable {
         fatalError()
       }
 
-      let parsedExtendedNotation = regexMatches[2 ..< regexMatches.endIndex].compactMap { (extendedNotation) -> (modifier: String, scale: String)? in
+      let parsedExtendedNotation = regexCaptures[2 ..< regexCaptures.endIndex].compactMap { (extendedNotation) -> (modifier: String, scale: String)? in
         guard let extendedNotationRegex = try? NSRegularExpression(pattern: "(add|no|sus|♭|♯|#|b|maj|M|°|\\+)?\\s?(\\d+)?", options: []),
           let extendedNotationMatch = extendedNotationRegex.firstMatch(in: extendedNotation, options: [], range: NSRange(0 ..< extendedNotation.count)),
           let extendedNotationModifier = Range(extendedNotationMatch.range(at: 1), in: extendedNotation),

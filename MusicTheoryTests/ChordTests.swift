@@ -99,11 +99,6 @@ class ChordTests: XCTestCase {
   }
 
   func testNotationAndDescriptions() {
-    let f8 = Chord(type: ChordType(third: nil, fifth: nil, sixth: nil, seventh: nil, eighth: .perfect, suspended: nil, extensions: nil), key: Key(type: "F"))
-
-    XCTAssertEqual(f8.notation, "F8")
-    XCTAssertEqual(f8.description, "F Octave")
-
     let g5 = Chord(type: ChordType(third: nil, fifth: .perfect, sixth: nil, seventh: nil, suspended: nil, extensions: nil), key: Key(type: "G"))
 
     XCTAssertEqual(g5.notation, "G5")

@@ -19,8 +19,6 @@ public struct ChordType: RegexStringLiteralExtractable {
   public var sixth: ChordSixthType?
   /// Defines a seventh chord. Defaults nil.
   public var seventh: ChordSeventhType?
-  /// Defined a eighth chord. Defaults nil.
-  public var eighth: ChordEighthType?
   /// Defines a suspended chord. Defaults nil.
   public var suspended: ChordSuspendedType?
   /// Defines extended chord. Defaults nil.
@@ -46,15 +44,13 @@ public struct ChordType: RegexStringLiteralExtractable {
   ///   - fifth: Fifths part. Defaults perfect fifth.
   ///   - sixth: Sixth part. Defaults nil.
   ///   - seventh: Seventh part. Defaults nil.
-  ///   - eighth: Eighth part. Defaults nil.
   ///   - suspended: Suspended part. Defaults nil.
   ///   - extensions: Extended chords part. Defaults nil. Could be add more than one extended chord.
-  public init(third: ChordThirdType?, fifth: ChordFifthType? = .perfect, sixth: ChordSixthType? = nil, seventh: ChordSeventhType? = nil, eighth: ChordEighthType? = nil, suspended: ChordSuspendedType? = nil, extensions: [ChordExtensionType]? = nil) {
+  public init(third: ChordThirdType?, fifth: ChordFifthType? = .perfect, sixth: ChordSixthType? = nil, seventh: ChordSeventhType? = nil, suspended: ChordSuspendedType? = nil, extensions: [ChordExtensionType]? = nil) {
     self.third = third
     self.fifth = fifth
     self.sixth = sixth
     self.seventh = seventh
-    self.eighth = eighth
     self.suspended = suspended
     self.extensions = extensions
 
@@ -79,7 +75,6 @@ public struct ChordType: RegexStringLiteralExtractable {
     var fifth: ChordFifthType?
     var sixth: ChordSixthType?
     var seventh: ChordSeventhType?
-    var eighth: ChordEighthType?
     var suspended: ChordSuspendedType?
     var extensions = [ChordExtensionType]()
 
@@ -92,8 +87,6 @@ public struct ChordType: RegexStringLiteralExtractable {
         sixth = sixthPart
       } else if let seventhPart = ChordSeventhType(interval: interval) {
         seventh = seventhPart
-      } else if let eighthPart = ChordEighthType(interval: interval) {
-        eighth = eighthPart
       } else if let suspendedPart = ChordSuspendedType(interval: interval) {
         suspended = suspendedPart
       } else if let extensionPart = ChordExtensionType(interval: interval) {
@@ -106,7 +99,6 @@ public struct ChordType: RegexStringLiteralExtractable {
       fifth: fifth,
       sixth: sixth,
       seventh: seventh,
-      eighth: eighth,
       suspended: suspended,
       extensions: extensions
     )
@@ -138,7 +130,6 @@ public struct ChordType: RegexStringLiteralExtractable {
       .sorted(by: { $0.type.rawValue < $1.type.rawValue })
       .map({ $0.description as String? }) ?? []
 
-    let eighthDescription = third == nil && fifth == nil ? "Octave" : nil
     let thirdDescription: String?
     let fifthDescription: String?
 
@@ -152,16 +143,11 @@ public struct ChordType: RegexStringLiteralExtractable {
       thirdDescription = third.description
       fifthDescription = "(no 5)"
     } else {
-      if eighth != nil {
-        thirdDescription = nil
-        fifthDescription = nil
-      } else {
-        thirdDescription = "(no 3)"
-        fifthDescription = "(no 5)"
-      }
+      thirdDescription = "(no 3)"
+      fifthDescription = "(no 5)"
     }
 
-    let desc = [eighthDescription, thirdDescription, fifthDescription, sixthNotation, seventhNotation, suspendedNotation] + extensionsNotation
+    let desc = [thirdDescription, fifthDescription, sixthNotation, seventhNotation, suspendedNotation] + extensionsNotation
     return desc.compactMap({ $0 }).joined(separator: " ")
   }
 
@@ -421,7 +407,6 @@ public extension ChordType {
     public var fifth: ChordFifthType? = .perfect
     public var sixth: ChordSixthType?
     public var seventh: ChordSeventhType?
-    public var eighth: ChordEighthType?
     public var suspended: ChordSuspendedType?
     public var extensions: [ChordExtensionType]?
 
@@ -456,7 +441,6 @@ public extension ChordType {
       addExtension(`extension`)
     }
 
-
     /// Options to fill in specified chord parts with defaults if they do not exist.
     struct FillOptions: OptionSet {
       let rawValue: Int
@@ -487,68 +471,65 @@ public extension ChordType {
     fifth = builder.fifth
     sixth = builder.sixth
     seventh = builder.seventh
-    eighth = builder.eighth
     suspended = builder.suspended
     extensions = builder.extensions
   }
 }
 
 extension ChordType: ChordDescription {
-    /// Notation of the chord type.
-    public var notation: String {
-        var seventhNotation = seventh?.notation ?? ""
-        var sixthNotation = sixth == nil ? "" : "\(sixth!.notation)\(seventh == nil ? "" : "/")"
-        let suspendedNotation = suspended?.notation ?? ""
-        var extensionNotation = ""
-        let ext = extensions?.sorted(by: { $0.type.rawValue < $1.type.rawValue }) ?? []
+  /// Notation of the chord type.
+  public var notation: String {
+    var seventhNotation = seventh?.notation ?? ""
+    var sixthNotation = sixth == nil ? "" : "\(sixth!.notation)\(seventh == nil ? "" : "/")"
+    let suspendedNotation = suspended?.notation ?? ""
+    var extensionNotation = ""
+    let ext = extensions?.sorted(by: { $0.type.rawValue < $1.type.rawValue }) ?? []
 
-        var singleNotation = !ext.isEmpty && true
-        for i in 0 ..< max(0, ext.count - 1) {
-            if ext[i].accidental != .natural {
-                singleNotation = false
-            }
-        }
-
-        if singleNotation {
-            extensionNotation = "(\(ext.last!.notation))"
-        } else {
-            extensionNotation = ext
-                .compactMap({ $0.notation })
-                .joined(separator: "/")
-            extensionNotation = extensionNotation.isEmpty ? "" : "(\(extensionNotation))"
-        }
-
-        let thirdNotation: String
-        let fifthNotation: String
-        var eighthNotation: String = ""
-
-        if let fifth = fifth, let third = third {
-            thirdNotation = third.notation
-            fifthNotation = fifth.notation
-        } else if let fifth = fifth {
-            thirdNotation = ""
-            fifthNotation = fifth == .perfect ? "5" : fifth.notation
-        } else if let third = third {
-            thirdNotation = third.notation
-            fifthNotation = "(no 5)"
-        } else {
-            eighthNotation = "8"
-            thirdNotation = ""
-            fifthNotation = ""
-        }
-
-        if seventh != nil {
-            // Don't show major seventh note if extended is a major as well
-            if seventh == .major, (extensions ?? []).count > 0 {
-                seventhNotation = ""
-                sixthNotation = sixth == nil ? "" : sixth!.notation
-            }
-            // Show fifth note after seventh in parenthesis
-            if fifth == .augmented || fifth == .diminished {
-                return "\(eighthNotation)\(thirdNotation)\(sixthNotation)\(seventhNotation)(\(thirdNotation))\(suspendedNotation)\(extensionNotation)"
-            }
-        }
-
-        return "\(eighthNotation)\(thirdNotation)\(fifthNotation)\(sixthNotation)\(seventhNotation)\(suspendedNotation)\(extensionNotation)"
+    var singleNotation = !ext.isEmpty && true
+    for i in 0 ..< max(0, ext.count - 1) {
+      if ext[i].accidental != .natural {
+        singleNotation = false
+      }
     }
+
+    if singleNotation {
+      extensionNotation = "(\(ext.last!.notation))"
+    } else {
+      extensionNotation = ext
+        .compactMap({ $0.notation })
+        .joined(separator: "/")
+      extensionNotation = extensionNotation.isEmpty ? "" : "(\(extensionNotation))"
+    }
+
+    let thirdNotation: String
+    let fifthNotation: String
+
+    if let fifth = fifth, let third = third {
+      thirdNotation = third.notation
+      fifthNotation = fifth.notation
+    } else if let fifth = fifth {
+      thirdNotation = ""
+      fifthNotation = fifth == .perfect ? "5" : fifth.notation
+    } else if let third = third {
+      thirdNotation = third.notation
+      fifthNotation = "(no 5)"
+    } else {
+      thirdNotation = ""
+      fifthNotation = ""
+    }
+
+    if seventh != nil {
+      // Don't show major seventh note if extended is a major as well
+      if seventh == .major, (extensions ?? []).count > 0 {
+        seventhNotation = ""
+        sixthNotation = sixth == nil ? "" : sixth!.notation
+      }
+      // Show fifth note after seventh in parenthesis
+      if fifth == .augmented || fifth == .diminished {
+        return "\(thirdNotation)\(sixthNotation)\(seventhNotation)(\(thirdNotation))\(suspendedNotation)\(extensionNotation)"
+      }
+    }
+
+    return "\(thirdNotation)\(fifthNotation)\(sixthNotation)\(seventhNotation)\(suspendedNotation)\(extensionNotation)"
+  }
 }

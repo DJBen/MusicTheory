@@ -10,7 +10,7 @@ import Foundation
 
 public protocol RegexStringLiteralExtractable: ExpressibleByStringLiteral where StringLiteralType == String {
   static var pattern: String { get }
-  init(regexMatches: [String])
+  init(regexCaptures: [String])
 }
 
 public extension RegexStringLiteralExtractable {
@@ -20,13 +20,13 @@ public extension RegexStringLiteralExtractable {
       fatalError("Fail to find a pattern")
     }
 
-    let matches: [String] = (0 ..< match.numberOfRanges).compactMap { index in
+    let captures: [String] = (0 ..< match.numberOfRanges).compactMap { index in
       if let range = Range(match.range(at: index), in: value) {
         return String(value[range])
       } else {
         return nil
       }
     }
-    self.init(regexMatches: matches)
+    self.init(regexCaptures: captures)
   }
 }
